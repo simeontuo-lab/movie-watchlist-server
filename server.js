@@ -58,3 +58,9 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}.`)
 })
 
+
+// app.get("/movies/actorName", (req, res) => {
+//     const actorName = req.params.actorName
+//     const moviesWithActor = movies.filter(movie => movie.starring.includes(actorName))
+//     res.json(moviesWithActor) 
+})
