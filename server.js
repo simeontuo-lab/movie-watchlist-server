@@ -22,12 +22,25 @@ app.get("/movies/:name", (req, res) => {
 
 app.post("/movies", (req, res) => {
     console.log(req.body)
-    movies.push(req.body)
-    res.json(movies)
+    const title = req.body.title
+    const starring = req.body.starring
+    const year = req.body.year
+    // const watched = req.body.watched
+    // const id = movies.length + 1
+
+
+    const newMovie = {
+        title: title,
+        starring: starring,
+        year: year,
+        watched: false,
+    }
+    movies.push(newMovie)
+    res.status(201).json(newMovie)
 
 })
 
-
+    
 const port = 3000
 
 
