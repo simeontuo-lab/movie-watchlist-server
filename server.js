@@ -40,8 +40,19 @@ app.post("/movies", (req, res) => {
 
 })
 
+app.delete("/movies/:id", (req, res)  => {
+  const id = parseInt(req.params.id)
+  const index = movies.findIndex(movie => movie.id === id)
+  movies.splice(index, 1)
+
+ 
+})
+res.json({
+    message: `Movie deleted ${req.params.id }.`
+})  
+
     
-const port = 3000
+    const port = 3000
 
 
 app.listen(port, () => {
