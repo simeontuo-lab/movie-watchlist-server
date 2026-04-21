@@ -4,8 +4,6 @@ import movies from './movies.js'
 const app = express()
 app.use(express.json())
 
-
-
 app.get("/", (req, res) => {
     res.json({
         message: "Welcome to the movie watchlist server."
@@ -20,47 +18,27 @@ app.get("/movies/:name", (req, res) => {
     res.json(movies.find(movie => movie.title === req.params.name))
 })
 
+app.get("/movies/actor/:actorName", (req, res) => {
+    res.json(movies.filter(movie => movie.starring.includes(req.params.actorName)))
+})
+
+let counter = 20
+
 app.post("/movies", (req, res) => {
-    console.log(req.body)
-    const title = req.body.title
-    const starring = req.body.starring
-    const year = req.body.year
-    // const watched = req.body.watched
-    // const id = movies.length + 1
-
-
     const newMovie = {
-        title: title,
-        starring: starring,
-        year: year,
+        title: req.body.title,
+        starring: req.body.starring,
+        year: req.body.year,
         watched: false,
+        id: counter++
     }
+
     movies.push(newMovie)
     res.status(201).json(newMovie)
-
 })
 
-app.delete("/movies/:id", (req, res)  => {
-  const id = parseInt(req.params.id)
-  const index = movies.findIndex(movie => movie.id === id)
-  movies.splice(index, 1)
-res.status(200).json({
-    message: `Movie deleted ${req.params.id }.`})  
- 
-})
-    
-
-    
-    const port = 3000
-
+const port = 3000
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}.`)
-})
-
-
-// app.get("/movies/actorName", (req, res) => {
-//     const actorName = req.params.actorName
-//     const moviesWithActor = movies.filter(movie => movie.starring.includes(actorName))
-//     res.json(moviesWithActor) 
 })
