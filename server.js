@@ -21,6 +21,12 @@ app.get("/movies/:name", (req, res) => {
 })
 
 app.post("/movies", (req, res) => {
+    console.log(req.body)
+    movies.push(req.body)
+    res.json(movies)
+
+})
+
 
 const port = 3000
 
@@ -28,3 +34,4 @@ const port = 3000
 app.listen(port, () => {
     console.log(`Server running on port ${port}.`)
 })
+
