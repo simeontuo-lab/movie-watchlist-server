@@ -7,6 +7,7 @@ const movies = [
   {title: 'Hamnet', starring: ['Jessie Buckley', 'Paul Mescal']}
 ]
 
+
 export default movies 
 
  
