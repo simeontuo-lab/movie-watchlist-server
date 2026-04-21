@@ -1,8 +1,6 @@
 import express from 'express'
 import movies from './movies.js'
 
-// const express = require('express')
-
 const app = express()
 
 
