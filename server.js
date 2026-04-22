@@ -22,6 +22,10 @@ app.get("/movies/actor/:actorName", (req, res) => {
     res.json(movies.filter(movie => movie.starring.includes(req.params.actorName)))
 })
 
+app.get("/watchedMovies", (req, res) => {
+    res.json(movies.filter(movie => movie.watched))
+})
+
 let counter = 20
 
 app.post("/movies", (req, res) => {
@@ -35,6 +39,25 @@ app.post("/movies", (req, res) => {
 
     movies.push(newMovie)
     res.status(201).json(newMovie)
+})
+
+app.delete("/movies/:id", (req, res) => {
+    const id = parseInt(req.params.id)
+    const index = movies.findIndex(movie => movie.id === id)
+
+    if (index === -1) {
+        return res.status(404).json({error: `No movie with id ${id}.`})
+    }
+
+    const deletedMovie = movies.splice(index, 1)
+    res.json({message: "Deleted:", movie: deletedMovie})
+})
+
+app.patch("/movies/:id/toggle-watched", (req, res) => {
+    const id = parseInt(req.params.id)
+    const movie = movies.find(movie => movie.id === id)
+    movie.watched = !movie.watched
+    res.json({message: "Toggled watched status of:", movie: movie})
 })
 
 const port = 3000
